@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="user"
+            type="com.rishav.matrimonialapp.data.UserResult" />
+    </data>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_medium"
+        app:cardCornerRadius="@dimen/padding_medium">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_large"
+            android:background="?attr/colorCard">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_dp"
+                android:layout_width="@dimen/poster_width"
+                android:layout_height="@dimen/poster_width"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="1dp"
+                tools:src="@sample/sample_images"
+                app:imageUrl="@{user.picture.large}"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/RoundImageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="@sample/names"
+                android:text="@{user.name.first+` `+user.name.last}"
+                android:textAppearance="@style/Text.SemiBold"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="@dimen/padding_small"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_dp"/>
+
+            <TextView
+                android:id="@+id/tv_details"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="Age 30"
+                android:text="@{`Age `+user.dob.age}"
+                android:textAppearance="@style/Text.Normal"
+                android:gravity="center_horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"/>
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="@sample/names"
+                android:text="@{user.location.city+`,`+user.location.state}"
+                android:textAppearance="@style/Text.Normal"
+                android:gravity="center_horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_details"/>
+
+            <ImageView
+                android:id="@+id/iv_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{user.userAction == 0? View.VISIBLE : View.INVISIBLE}"
+                android:src="@drawable/ic_heart"
+                android:paddingTop="@dimen/padding_medium"
+                android:paddingBottom="@dimen/padding_medium"
+                android:paddingLeft="@dimen/padding_medium"
+                android:paddingRight="@dimen/padding_medium"
+                android:layout_marginBottom="@dimen/padding_small"
+                android:background="@drawable/round_button_background"
+                app:layout_constraintTop_toBottomOf="@+id/tv_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/iv_reject"/>
+            <ImageView
+                android:id="@+id/iv_reject"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
+                android:visibility="@{user.userAction == 0? View.VISIBLE : View.INVISIBLE}"
+                android:src="@drawable/ic_close"
+                android:padding="@dimen/padding_close_button"
+                android:background="@drawable/round_button_background"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_accept"
+                app:layout_constraintTop_toTopOf="@+id/iv_accept"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/iv_accept"/>
+            <TextView
+                android:id="@+id/tv_accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accept"
+                android:visibility="@{user.userAction == 0? View.VISIBLE : View.INVISIBLE}"
+                android:textAppearance="@style/Text.Normal"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_accept"
+                app:layout_constraintRight_toRightOf="@+id/iv_accept"
+                app:layout_constraintTop_toBottomOf="@+id/iv_accept"/>
+            <TextView
+                android:id="@+id/tv_reject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Decline"
+                android:visibility="@{user.userAction == 0? View.VISIBLE : View.INVISIBLE}"
+                android:textAppearance="@style/Text.Normal"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_reject"
+                app:layout_constraintRight_toRightOf="@+id/iv_reject"
+                app:layout_constraintTop_toBottomOf="@+id/iv_reject"/>
+            <TextView
+                android:id="@+id/tv_action_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Member Accepted"
+                android:visibility="@{user.userAction == 0? View.INVISIBLE : View.VISIBLE}"
+                android:textAppearance="@style/Text.Normal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_accept"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
