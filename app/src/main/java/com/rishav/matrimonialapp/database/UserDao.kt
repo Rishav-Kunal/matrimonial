@@ -20,4 +20,13 @@ interface UserDao {
 
     @Query("SELECT * FROM users_table")
     fun getUsers(): LiveData<List<UserResult>?>
+
+    @Query("SELECT * FROM users_table WHERE userAction = 22")
+    fun getAcceptedUsers(): LiveData<List<UserResult>?>
+
+    @Query("SELECT * FROM users_table WHERE userAction = 21")
+    fun getDeclinedUsers(): LiveData<List<UserResult>?>
+
+    @Query("SELECT * FROM users_table WHERE userAction = 0")
+    fun getNoActionUsers(): LiveData<List<UserResult>?>
 }

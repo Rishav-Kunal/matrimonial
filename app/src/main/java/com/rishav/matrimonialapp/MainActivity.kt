@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.material.tabs.TabLayoutMediator
 import com.rishav.matrimonialapp.adapter.UserListAdapter
+import com.rishav.matrimonialapp.adapter.UserPagerAdapter
 import com.rishav.matrimonialapp.data.UserResult
 import com.rishav.matrimonialapp.databinding.ActivityMainBinding
 import com.rishav.matrimonialapp.util.ItemClickListener
@@ -17,7 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
-    lateinit var adapter: UserListAdapter
+    lateinit var adapter: UserPagerAdapter
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainActivityViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,16 +30,10 @@ class MainActivity : AppCompatActivity() {
         init()
     }
     private fun init(){
-        binding.rvUsers.adapter = adapter
-        adapter.clickListener = object : ItemClickListener<UserResult>{
-            override fun onItemClicked(item: UserResult, accepted: Boolean) {
-                viewModel.applyUserAction(item,accepted)
-            }
-
-
-        }
-        viewModel.userLiveData.observe(this, Observer { userList ->
-            userList?.let {adapter.updateData(it) }
-        })
+        binding.pager.adapter = adapter
+        val tabNames = resources.getStringArray(R.array.tabs)
+        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
+            tab.text = tabNames[position]
+        }.attach()
     }
 }

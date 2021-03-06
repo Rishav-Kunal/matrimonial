@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Matrimonial App</string>
     <string name="no_matches_to_display">No matches to display</string>
+    <array name="tabs">
+        <item>Accepted</item>
+        <item>Pending</item>
+        <item>Declined</item>
+    </array>
 </resources>

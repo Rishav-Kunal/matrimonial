@@ -9,4 +9,6 @@ interface RandomUserRepository {
     suspend fun saveAllUsers(users : List<UserResult>)
     suspend fun updateUser(user : UserResult)
     fun fetchAllUsersFromDb(): LiveData<List<UserResult>?>
+    fun fetchAcceptedUsersFromDb(): LiveData<List<UserResult>?>
+    fun fetchDeclinedUsersFromDb(): LiveData<List<UserResult>?>
 }

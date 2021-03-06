@@ -34,6 +34,14 @@ class RandomUserRepositoryImpl @Inject constructor(private val api : NetworkApi,
     }
 
     override fun fetchAllUsersFromDb(): LiveData<List<UserResult>?> {
-        return userDao.getUsers()
+        return userDao.getNoActionUsers()
+    }
+
+    override fun fetchAcceptedUsersFromDb(): LiveData<List<UserResult>?> {
+        return userDao.getAcceptedUsers()
+    }
+
+    override fun fetchDeclinedUsersFromDb(): LiveData<List<UserResult>?> {
+        return userDao.getDeclinedUsers()
     }
 }

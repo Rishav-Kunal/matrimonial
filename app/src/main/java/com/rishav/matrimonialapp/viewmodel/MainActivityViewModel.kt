@@ -15,7 +15,8 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(private val repository: RandomUserRepository): ViewModel() {
 
     val userLiveData : LiveData<List<UserResult>?> = repository.fetchAllUsersFromDb()
-    private val _userLiveData : MutableLiveData<List<UserResult>> = MutableLiveData()
+    val acceptedUserLiveData : LiveData<List<UserResult>?> = repository.fetchAcceptedUsersFromDb()
+    val declinedUserLiveData : LiveData<List<UserResult>?> = repository.fetchDeclinedUsersFromDb()
 
     val isLoading : LiveData<Boolean> get() = _isLoading
     private val _isLoading : MutableLiveData<Boolean> = MutableLiveData(true)
